@@ -8,7 +8,7 @@ L'IA Claude est integree de bout en bout comme panneau lateral contextuel sur ch
 
 ## Cadre juridique de reference
 
-Loi n 2020-26 du 29/09/2020 portant code des marches publics en Republique du Benin (127 articles). Decrets d'application n 2020-595 a 2020-605 du 23/12/2020. Manuel de Procedures de Passation des Marches Publics ARMP (155 pages, juin 2023). Manuel de Controle des Marches Publics (juin 2022, MAJ juin 2023). Manuel de Traitement des Recours et Auto-saisines (juin 2023). Circulaires ARMP 2022-001, 2022-002, 2023-002, 2024-001 a 2024-005, 2025-001, 2025-002. DAO-types ARMP travaux, fournitures, services, prequalification (version juin 2023, Decret 2020-602). Check-lists ARMP. Loi 2024-30 PPP.
+Loi n 2020-26 du 29/09/2020 portant code des marches publics en Republique du Benin (127 articles). Decrets d'application n 2020-595 a 2020-605 du 23/12/2020. Manuel de Procedures de Passation des Marches Publics ARMP (155 pages, juin 2023). Manuel de Controle des Marches Publics (juin 2022, MAJ juin 2023). Manuel de Traitement des Recours et Auto-saisines (juin 2023). Circulaires ARMP 2022-001, 2022-002, 2023-002, 2024-001 a 2024-005, 2025-001, 2025-002. DAO-types ARMP travaux, fournitures, services, prequalification (version juin 2023, Decret 2020-602). Check-lists ARMP. Loi 2024-30 PPP. Le manuel de procedures est l'un des plus importants,il detail chaque etape de la procedures.
 
 Hierarchie des normes en cas de contradiction : Loi 2020-26 > Decrets > Arretes > Decisions > Avis et circulaires ARMP > Manuel de procedures.
 

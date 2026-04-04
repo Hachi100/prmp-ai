@@ -23,20 +23,21 @@ import { relations } from "drizzle-orm";
 /**
  * Type personnalise pour pgvector
  * Dimension 1024 pour Voyage AI voyage-3
+ * Stocke en JSONB si pgvector n'est pas disponible (mode degradé)
  */
 const vector = customType<{ data: number[]; driverData: string }>({
   dataType() {
-    return "vector(1024)";
+    return "text"; // Utilise text en attendant pgvector (stocker JSON serialise)
   },
   toDriver(value: number[]): string {
-    return `[${value.join(",")}]`;
+    return JSON.stringify(value);
   },
   fromDriver(value: string): number[] {
-    return value
-      .replace("[", "")
-      .replace("]", "")
-      .split(",")
-      .map(Number);
+    try {
+      return JSON.parse(value) as number[];
+    } catch {
+      return [];
+    }
   },
 });
 
@@ -85,13 +86,8 @@ export const recherchesLog = pgTable("recherches_log", {
     .defaultNow(),
 });
 
-// SQL pour creer l'index HNSW (a executer apres la migration)
-export const createVectorIndexSQL = sql`
-  CREATE INDEX IF NOT EXISTS chunks_juridiques_embedding_idx
-  ON chunks_juridiques
-  USING hnsw (embedding vector_cosine_ops)
-  WITH (m = 16, ef_construction = 64);
-`;
+// SQL pour creer l'index HNSW (uniquement si pgvector est disponible)
+export const createVectorIndexSQL = sql`SELECT 1`; // Desactive en mode degrade
 
 // Relations
 export const recherchesLogRelations = relations(recherchesLog, ({ one }) => ({

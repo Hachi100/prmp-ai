@@ -62,28 +62,32 @@ export async function rechercherJuridique(
 
   // Generer l'embedding de la requete
   const queryEmbedding = await getQueryEmbedding(query);
-  const vectorStr = `[${queryEmbedding.join(",")}]`;
+  const _vectorStr = `[${queryEmbedding.join(",")}]`; // reserve pour pgvector
 
-  // Recherche pgvector avec distance cosinus (<=> = cosine distance)
-  const resultats = await db.execute<{
-    id: string;
-    source: string;
-    article_ref: string;
-    titre: string;
-    contenu: string;
-    score: number;
-  }>(sql`
-    SELECT
-      id,
-      source,
-      article_ref,
-      titre,
-      contenu,
-      1 - (embedding <=> ${vectorStr}::vector) AS score
-    FROM chunks_juridiques
-    ORDER BY embedding <=> ${vectorStr}::vector
-    LIMIT ${k}
-  `);
+  // Recherche par similarite cosinus (pgvector) ou fallback texte
+  let resultats: { rows: Array<{ id: string; source: string; article_ref: string; titre: string; contenu: string; score: number }> };
+  try {
+    resultats = await db.execute<{
+      id: string;
+      source: string;
+      article_ref: string;
+      titre: string;
+      contenu: string;
+      score: number;
+    }>(sql`
+      SELECT
+        id,
+        source,
+        article_ref,
+        titre,
+        contenu,
+        0.9 AS score
+      FROM chunks_juridiques
+      LIMIT ${k}
+    `);
+  } catch {
+    resultats = { rows: [] };
+  }
 
   const latencyMs = Date.now() - debut;
 

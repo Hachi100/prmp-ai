@@ -5,6 +5,7 @@
 
 import type { Metadata } from "next";
 import Link from "next/link";
+import { AIPanelClient } from "@/components/ai-panel-client";
 
 export const metadata: Metadata = {
   title: "PRMP-Pro — Dashboard",
@@ -98,38 +99,9 @@ export default function DashboardLayout({
           {children}
         </main>
 
-        {/* Panneau IA — import dynamique pour eviter l'hydration mismatch */}
-        <AIPanelWrapper />
+        {/* Panneau IA lateral */}
+        <AIPanelClient />
       </div>
     </div>
-  );
-}
-
-/**
- * Wrapper pour le panneau IA (client component)
- * Le panneau IA est importe dynamiquement pour le rendering cote client
- */
-function AIPanelWrapper() {
-  return (
-    <aside className="w-96 border-l border-gray-200 bg-white flex flex-col">
-      <div className="p-4 border-b border-gray-100 flex items-center gap-2">
-        <div className="h-2 w-2 rounded-full bg-blue-500 animate-pulse" />
-        <span className="text-sm font-semibold text-gray-700">Conseiller IA</span>
-        <span className="ml-auto text-xs text-gray-400 bg-gray-100 px-2 py-0.5 rounded">Claude</span>
-      </div>
-      {/* Le panneau IA reel est charge cote client depuis les pages */}
-      <div className="flex-1 flex items-center justify-center p-6 text-center">
-        <div className="space-y-3">
-          <div className="text-4xl">⚖️</div>
-          <p className="text-sm font-medium text-gray-700">Conseiller IA PRMP-Pro</p>
-          <p className="text-xs text-gray-500">
-            Posez vos questions sur les marches publics. Je cite toujours les articles de loi.
-          </p>
-          <p className="text-xs text-gray-400 italic">
-            Loi 2020-26 • Decrets 2020-595 a 605 • Manuel ARMP
-          </p>
-        </div>
-      </div>
-    </aside>
   );
 }

@@ -105,7 +105,8 @@ function isCommuneSansStatut(typeEntite: TypeEntite): boolean {
 
 /** Renvoie true si l'entite est un organisme de droit public / societe nationale / SAPM */
 function isOrganismePublic(typeEntite: TypeEntite): boolean {
-  return [TypeEntite.EP_EPIC, TypeEntite.EP_EPA].includes(typeEntite as TypeEntite.EP_EPIC | TypeEntite.EP_EPA);
+  const organismes: TypeEntite[] = [TypeEntite.EP_EPIC, TypeEntite.EP_EPA];
+  return organismes.includes(typeEntite);
 }
 
 // ---------------------------------------------------------------------------

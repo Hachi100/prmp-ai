@@ -157,7 +157,7 @@ export function getDelaiRemiseOffres(
   mode: ModePassation,
   isCommunautaire: boolean
 ): { jours: number; typeDelai: TypeDelai; articleSource: string } {
-  const estPI = [
+  const modesPI: ModePassation[] = [
     ModePassation.SFQC,
     ModePassation.SFQ,
     ModePassation.SCBD,
@@ -165,7 +165,8 @@ export function getDelaiRemiseOffres(
     ModePassation.SFQC_QUALIFICATION,
     ModePassation.SCI,
     ModePassation.ENTENTE_DIRECTE_PI,
-  ].includes(mode as ModePassation.SFQC | ModePassation.SFQ | ModePassation.SCBD | ModePassation.SMC | ModePassation.SFQC_QUALIFICATION | ModePassation.SCI | ModePassation.ENTENTE_DIRECTE_PI);
+  ];
+  const estPI = modesPI.includes(mode);
 
   if (estPI) {
     return {

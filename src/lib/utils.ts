@@ -6,6 +6,12 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 /** Formate un montant FCFA */
+export function formatMontant(montant: bigint | number): string {
+  const n = typeof montant === "bigint" ? Number(montant) : montant
+  return new Intl.NumberFormat("fr-FR").format(n) + " FCFA"
+}
+
+/** Alias pour formatMontant */
 export function formatFCFA(montant: bigint | number): string {
   return new Intl.NumberFormat("fr-FR", {
     style: "decimal",

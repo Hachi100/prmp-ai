@@ -7,7 +7,8 @@ import "dotenv/config";
 import { Pool } from "pg";
 import { drizzle } from "drizzle-orm/node-postgres";
 import * as schema from "../src/lib/db/schema";
-import { crypto } from "node:crypto";
+import * as nodeCrypto from "node:crypto";
+const crypto = nodeCrypto.webcrypto;
 
 const pool = new Pool({ connectionString: process.env["DATABASE_URL"] });
 const db = drizzle(pool, { schema });

@@ -105,7 +105,7 @@ export function AIPanel({ module = "dashboard", marcheId, marche }: AIPanelProps
         if (!last) return updated
         updated[updated.length - 1] = {
           ...last,
-          content: "Erreur de connexion au conseiller IA. Verifiez la cle API Anthropic.",
+          content: "Erreur de connexion au conseiller IA. Verifiez la cle API DeepSeek.",
         }
         return updated
       })
@@ -142,7 +142,7 @@ export function AIPanel({ module = "dashboard", marcheId, marche }: AIPanelProps
             <span className="w-2 h-2 bg-green-300 rounded-full animate-pulse inline-block"></span>
             Conseiller IA — PRMP-Pro
           </div>
-          <div className="text-xs text-green-200 mt-0.5">Claude · Loi 2020-26 Benin</div>
+          <div className="text-xs text-green-200 mt-0.5">DeepSeek · Loi 2020-26 Benin</div>
         </div>
         <button
           onClick={() => setIsOpen(false)}

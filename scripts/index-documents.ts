@@ -295,8 +295,8 @@ async function main() {
     try {
       const { indexerTousTextes } = await import("../src/lib/ai/rag/indexer.js");
       const rapport = await indexerTousTextes(totalChunks);
-      console.log(`  ✅ ${rapport.indexes} chunks indexés avec embeddings`);
-      console.log(`  ❌ ${rapport.erreurs} erreurs`);
+      console.log(`  ✅ ${rapport.indexed} chunks indexés avec embeddings`);
+      console.log(`  ❌ ${rapport.errors} erreurs`);
     } catch (err) {
       console.log(`  ⚠ Erreur embeddings : ${err}`);
     }

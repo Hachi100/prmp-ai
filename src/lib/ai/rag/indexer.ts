@@ -1,6 +1,7 @@
 /**
  * Pipeline d'indexation de la base juridique pour le RAG
- * Modele d'embedding : Voyage AI voyage-3 (dimension 1024)
+ * Mode degrade : embeddings vides (tableau JSON []) — recherche par mots-cles uniquement
+ * (Voyage AI remplace par mode degrade sans cle API requise)
  * Stockage : PostgreSQL + pgvector (table chunks_juridiques)
  */
 
@@ -28,42 +29,17 @@ export interface IndexingReport {
 }
 
 // ---------------------------------------------------------------------------
-// Client Voyage AI
+// Embeddings en mode degrade (tableau vide)
+// La recherche s'effectue par mots-cles via SQL ILIKE plutot que par similarite cosinus
 // ---------------------------------------------------------------------------
 
 async function getEmbeddings(
   textes: string[],
-  inputType: "document" | "query"
+  _inputType: "document" | "query"
 ): Promise<number[][]> {
-  const apiKey = process.env["VOYAGE_API_KEY"];
-  if (!apiKey) throw new Error("VOYAGE_API_KEY non defini");
-
-  const response = await fetch("https://api.voyageai.com/v1/embeddings", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${apiKey}`,
-    },
-    body: JSON.stringify({
-      model: "voyage-3",
-      input: textes,
-      input_type: inputType,
-    }),
-  });
-
-  if (!response.ok) {
-    const error = await response.text();
-    throw new Error(`Voyage AI API error: ${response.status} — ${error}`);
-  }
-
-  const result = (await response.json()) as {
-    data: Array<{ embedding: number[]; index: number }>;
-  };
-
-  // Trier par index pour garantir l'ordre
-  return result.data
-    .sort((a, b) => a.index - b.index)
-    .map((item) => item.embedding);
+  // Mode degrade : retourner des embeddings vides pour chaque texte
+  // La recherche sera effectuee par mots-cles dans le retriever
+  return textes.map(() => []);
 }
 
 // ---------------------------------------------------------------------------
@@ -128,7 +104,7 @@ export function chunkerLegal(
 // Indexation
 // ---------------------------------------------------------------------------
 
-const BATCH_SIZE = 20; // Limite de l'API Voyage AI par requete
+const BATCH_SIZE = 20; // Taille de batch pour l'insertion en base
 
 /**
  * Indexe un batch de chunks dans la base pgvector.

@@ -94,6 +94,8 @@ export async function POST(
       })
       .returning();
 
+    if (!decompte) return NextResponse.json({ error: "Insert failed" }, { status: 500 });
+
     return NextResponse.json(
       {
         ...decompte,

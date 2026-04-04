@@ -95,13 +95,10 @@ export async function PATCH(
     const body = await request.json();
     const data = UpdateContratSchema.parse(body);
 
-    const updateData: Partial<typeof data> & {
-      updatedAt?: Date;
-      sousTraitancePct?: string;
-    } = { ...data, updatedAt: new Date() };
-
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const updateData: Record<string, any> = { ...data, updatedAt: new Date() };
     if (data.sousTraitancePct !== undefined) {
-      updateData.sousTraitancePct = String(data.sousTraitancePct);
+      updateData["sousTraitancePct"] = String(data.sousTraitancePct);
     }
 
     const [updated] = await db

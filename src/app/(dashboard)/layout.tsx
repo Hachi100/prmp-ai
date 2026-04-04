@@ -19,6 +19,8 @@ const navItems = [
   { href: "/evaluation", label: "Evaluation", icon: "⚖️" },
   { href: "/contrats", label: "Contrats", icon: "📝" },
   { href: "/reporting", label: "Reporting", icon: "📊" },
+  { href: "/alertes", label: "Alertes", icon: "🔔" },
+  { href: "/audit", label: "Audit", icon: "🔒" },
 ];
 
 export default function DashboardLayout({

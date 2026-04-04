@@ -88,6 +88,8 @@ export async function POST(
       })
       .returning();
 
+    if (!penalite) return NextResponse.json({ error: "Insert failed" }, { status: 500 });
+
     return NextResponse.json(
       {
         ...penalite,

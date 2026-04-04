@@ -87,6 +87,8 @@ export async function POST(request: NextRequest) {
       })
       .returning();
 
+    if (!contrat) return NextResponse.json({ error: "Insert failed" }, { status: 500 });
+
     return NextResponse.json(
       {
         ...contrat,
